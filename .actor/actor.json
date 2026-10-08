@@ -1,0 +1,24 @@
+{
+    "actorSpecification": 1,
+    "name": "instagram-ultimate-scraper",
+    "title": "Instagram Ultimate Scraper (Profiles, Posts, Reels, Comments, Hashtags & Leads)",
+    "description": "Comprehensive all-in-one Instagram scraper. Extracts Profiles with verified emails/phones, Posts & Carousels, Reels, Comments & Replies, Hashtags, Places, Tagged media, Audio/Music metadata, and Stories.",
+    "version": "1.0.0",
+    "meta": {
+        "templateId": "js-crawlee-playwright"
+    },
+    "dockerfile": "./Dockerfile",
+    "input": "./input_schema.json",
+    "storages": {
+        "dataset": "./dataset_schema.json"
+    },
+    "output": "./output_schema.json",
+    "categories": [
+        "LEAD_GENERATION",
+        "SOCIAL_MEDIA",
+        "MARKETING"
+    ],
+    "environmentVariables": {
+        "APIFY_DISABLE_BROWSER_SANDBOX": "1"
+    }
+}
