@@ -1,0 +1,81 @@
+{
+    "title": "Instagram Ultimate All-in-One Scraper Input",
+    "type": "object",
+    "schemaVersion": 1,
+    "properties": {
+        "scrapeMode": {
+            "title": "Scraping Mode",
+            "type": "string",
+            "description": "Select the Instagram target mode or keep AUTO_DETECT to automatically identify the URL type.",
+            "default": "AUTO_DETECT",
+            "editor": "select",
+            "enum": [
+                "AUTO_DETECT",
+                "PROFILES",
+                "POSTS_AND_CAROUSELS",
+                "REELS",
+                "COMMENTS",
+                "HASHTAGS",
+                "PLACES",
+                "TAGGED_POSTS",
+                "AUDIO_MUSIC"
+            ]
+        },
+        "directUrls": {
+            "title": "Instagram Target URLs or Usernames",
+            "type": "array",
+            "description": "Instagram URLs (Profile, Post, Reel, Hashtag, Place) or plain usernames (e.g. nike, cristiano, leomessi).",
+            "editor": "requestListSources",
+            "prefill": [
+                { "url": "https://www.instagram.com/nike/" },
+                { "url": "https://www.instagram.com/explore/tags/travel/" }
+            ]
+        },
+        "searchQueries": {
+            "title": "Search Keywords / Queries (Optional)",
+            "type": "array",
+            "description": "Keywords to search on Instagram (e.g. 'luxury hotels', 'real estate dubai') to discover matching profiles, hashtags and places.",
+            "editor": "stringList",
+            "default": []
+        },
+        "resultsLimit": {
+            "title": "Maximum Results Per Target",
+            "type": "integer",
+            "description": "Maximum number of posts, reels, comments, or search results to extract per target URL.",
+            "default": 20,
+            "minimum": 1,
+            "maximum": 500
+        },
+        "maxCommentsPerPost": {
+            "title": "Max Comments per Post / Reel",
+            "type": "integer",
+            "description": "Maximum comments and replies to scrape per post.",
+            "default": 15,
+            "minimum": 0,
+            "maximum": 100
+        },
+        "extractEmailAndPhone": {
+            "title": "Extract Email & Phone Leads",
+            "type": "boolean",
+            "description": "Automatically parses biography and contact fields to extract business emails, phone numbers, and WhatsApp links.",
+            "default": true
+        },
+        "proxyConfiguration": {
+            "title": "Proxy Configuration",
+            "type": "object",
+            "description": "Apify Proxy settings. Residential proxies are strongly recommended for Instagram to avoid rate limiting and login challenges.",
+            "editor": "proxy",
+            "default": {
+                "useApifyProxy": true,
+                "apifyProxyGroups": ["RESIDENTIAL"]
+            }
+        },
+        "customCookies": {
+            "title": "Instagram Session Cookies (Optional)",
+            "type": "string",
+            "description": "Optional Instagram cookies (JSON array or 'sessionid=...; ds_user_id=...' format) for scraping private profiles, follower lists, or full logged-in data.",
+            "editor": "textarea"
+        }
+    },
+    "required": ["directUrls"]
+}
