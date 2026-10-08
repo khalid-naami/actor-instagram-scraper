@@ -1,117 +1,120 @@
 {
     "actorSpecification": 1,
     "fields": {
-        "type": {
-            "type": "string",
-            "description": "Entity type: PROFILE, POST, REEL, COMMENT, HASHTAG, PLACE, AUDIO"
-        },
-        "url": {
-            "type": "string",
-            "description": "Original source URL"
-        },
-        "id": {
-            "type": "string",
-            "description": "Unique Instagram numeric ID or shortcode"
-        },
-        "username": {
-            "type": "string",
-            "description": "Username / Handle"
-        },
-        "fullName": {
-            "type": "string",
-            "description": "Display name or Full Name"
-        },
-        "followersCount": {
-            "type": "integer",
-            "description": "Number of followers"
-        },
-        "followsCount": {
-            "type": "integer",
-            "description": "Number of accounts followed"
-        },
-        "postsCount": {
-            "type": "integer",
-            "description": "Total posts published"
-        },
-        "biography": {
-            "type": "string",
-            "description": "Profile biography text"
-        },
-        "email": {
-            "type": "string",
-            "description": "Business contact email"
-        },
-        "phone": {
-            "type": "string",
-            "description": "Business contact phone number"
-        },
-        "externalUrl": {
-            "type": "string",
-            "description": "External website / Link in bio"
-        },
-        "isVerified": {
-            "type": "boolean",
-            "description": "Verified blue check status"
-        },
-        "isBusiness": {
-            "type": "boolean",
-            "description": "Whether the profile is a creator/business account"
-        },
-        "businessCategory": {
-            "type": "string",
-            "description": "Industry or business category"
-        },
-        "caption": {
-            "type": "string",
-            "description": "Post or Reel text caption"
-        },
-        "likesCount": {
-            "type": "integer",
-            "description": "Likes or reactions count"
-        },
-        "commentsCount": {
-            "type": "integer",
-            "description": "Comments count"
-        },
-        "videoViewCount": {
-            "type": "integer",
-            "description": "Video or Reel views count"
-        },
-        "videoPlayCount": {
-            "type": "integer",
-            "description": "Reel play count"
-        },
-        "displayUrl": {
-            "type": "string",
-            "description": "High-resolution image or video thumbnail URL"
-        },
-        "videoUrl": {
-            "type": "string",
-            "description": "Direct MP4 video URL if available"
-        },
-        "audioTitle": {
-            "type": "string",
-            "description": "Music song or audio title used in Reel"
-        },
-        "audioArtist": {
-            "type": "string",
-            "description": "Music artist or creator name"
-        },
-        "hashtags": {
-            "type": "array",
-            "description": "List of hashtags mentioned"
-        },
-        "mentions": {
-            "type": "array",
-            "description": "List of @tagged accounts"
-        },
-        "timestamp": {
-            "type": "string",
-            "description": "ISO publication timestamp"
-        },
-        "scrapedAt": {
-            "type": "string",
-            "description": "ISO timestamp when the data was extracted"
+        "type": "object",
+        "properties": {
+            "type": {
+                "type": "string",
+                "title": "Entity Type"
+            },
+            "url": {
+                "type": "string",
+                "title": "Instagram URL"
+            },
+            "id": {
+                "type": "string",
+                "title": "Instagram ID"
+            },
+            "username": {
+                "type": "string",
+                "title": "Username"
+            },
+            "fullName": {
+                "type": "string",
+                "title": "Full Name"
+            },
+            "followersCount": {
+                "type": "integer",
+                "title": "Followers Count"
+            },
+            "followsCount": {
+                "type": "integer",
+                "title": "Follows Count"
+            },
+            "postsCount": {
+                "type": "integer",
+                "title": "Posts Count"
+            },
+            "biography": {
+                "type": "string",
+                "title": "Biography"
+            },
+            "email": {
+                "type": "string",
+                "title": "Business Email"
+            },
+            "phone": {
+                "type": "string",
+                "title": "Business Phone"
+            },
+            "externalUrl": {
+                "type": "string",
+                "title": "External Website"
+            },
+            "isVerified": {
+                "type": "boolean",
+                "title": "Verified Badge"
+            },
+            "isBusiness": {
+                "type": "boolean",
+                "title": "Business Account"
+            },
+            "businessCategory": {
+                "type": "string",
+                "title": "Category"
+            },
+            "caption": {
+                "type": "string",
+                "title": "Post Caption"
+            },
+            "likesCount": {
+                "type": "integer",
+                "title": "Likes Count"
+            },
+            "commentsCount": {
+                "type": "integer",
+                "title": "Comments Count"
+            },
+            "videoViewCount": {
+                "type": "integer",
+                "title": "Video Views"
+            },
+            "videoPlayCount": {
+                "type": "integer",
+                "title": "Reel Plays"
+            },
+            "displayUrl": {
+                "type": "string",
+                "title": "Display Image URL"
+            },
+            "videoUrl": {
+                "type": "string",
+                "title": "Video URL"
+            },
+            "audioTitle": {
+                "type": "string",
+                "title": "Audio Music Title"
+            },
+            "audioArtist": {
+                "type": "string",
+                "title": "Audio Music Artist"
+            },
+            "hashtags": {
+                "type": "array",
+                "title": "Hashtags"
+            },
+            "mentions": {
+                "type": "array",
+                "title": "Mentions"
+            },
+            "timestamp": {
+                "type": "string",
+                "title": "Timestamp"
+            },
+            "scrapedAt": {
+                "type": "string",
+                "title": "Scraped At"
+            }
         }
     }
 }
