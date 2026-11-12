@@ -1,7 +1,9 @@
 {
     "actorSpecification": 1,
     "fields": {
+        "$schema": "http://json-schema.org/draft-07/schema#",
         "type": "object",
+        "additionalProperties": true,
         "properties": {
             "type": {
                 "type": "string",
@@ -14,6 +16,10 @@
             "id": {
                 "type": "string",
                 "title": "Instagram ID"
+            },
+            "shortcode": {
+                "type": "string",
+                "title": "Post Shortcode"
             },
             "username": {
                 "type": "string",
@@ -47,13 +53,29 @@
                 "type": "string",
                 "title": "Business Phone"
             },
+            "businessEmail": {
+                "type": "string",
+                "title": "Verified Business Email"
+            },
+            "businessPhone": {
+                "type": "string",
+                "title": "Verified Business Phone"
+            },
             "externalUrl": {
                 "type": "string",
                 "title": "External Website"
             },
+            "profilePicUrl": {
+                "type": "string",
+                "title": "Profile Picture URL"
+            },
             "isVerified": {
                 "type": "boolean",
                 "title": "Verified Badge"
+            },
+            "isPrivate": {
+                "type": "boolean",
+                "title": "Private Account"
             },
             "isBusiness": {
                 "type": "boolean",
@@ -62,6 +84,14 @@
             "businessCategory": {
                 "type": "string",
                 "title": "Category"
+            },
+            "latestPosts": {
+                "type": "array",
+                "title": "Latest Profile Posts",
+                "items": {
+                    "type": "object",
+                    "additionalProperties": true
+                }
             },
             "caption": {
                 "type": "string",
@@ -83,6 +113,10 @@
                 "type": "integer",
                 "title": "Reel Plays"
             },
+            "isVideo": {
+                "type": "boolean",
+                "title": "Is Video"
+            },
             "displayUrl": {
                 "type": "string",
                 "title": "Display Image URL"
@@ -90,6 +124,13 @@
             "videoUrl": {
                 "type": "string",
                 "title": "Video URL"
+            },
+            "images": {
+                "type": "array",
+                "title": "Carousel & Media Images",
+                "items": {
+                    "type": "string"
+                }
             },
             "audioTitle": {
                 "type": "string",
@@ -101,11 +142,37 @@
             },
             "hashtags": {
                 "type": "array",
-                "title": "Hashtags"
+                "title": "Hashtags",
+                "items": {
+                    "type": "string"
+                }
             },
             "mentions": {
                 "type": "array",
-                "title": "Mentions"
+                "title": "Mentions",
+                "items": {
+                    "type": "string"
+                }
+            },
+            "comments": {
+                "type": "array",
+                "title": "Post Comments",
+                "items": {
+                    "type": "object",
+                    "additionalProperties": true
+                }
+            },
+            "posts": {
+                "type": "array",
+                "title": "Discovered Posts",
+                "items": {
+                    "type": "object",
+                    "additionalProperties": true
+                }
+            },
+            "sourceUrl": {
+                "type": "string",
+                "title": "Source Target URL"
             },
             "timestamp": {
                 "type": "string",
@@ -114,6 +181,65 @@
             "scrapedAt": {
                 "type": "string",
                 "title": "Scraped At"
+            }
+        }
+    },
+    "views": {
+        "overview": {
+            "title": "Overview",
+            "transformation": {
+                "fields": [
+                    "type",
+                    "username",
+                    "fullName",
+                    "followersCount",
+                    "caption",
+                    "likesCount",
+                    "commentsCount",
+                    "email",
+                    "url"
+                ]
+            },
+            "display": {
+                "component": "table",
+                "properties": {
+                    "type": {
+                        "label": "Type",
+                        "format": "text"
+                    },
+                    "username": {
+                        "label": "Username",
+                        "format": "text"
+                    },
+                    "fullName": {
+                        "label": "Name",
+                        "format": "text"
+                    },
+                    "followersCount": {
+                        "label": "Followers",
+                        "format": "number"
+                    },
+                    "caption": {
+                        "label": "Caption",
+                        "format": "text"
+                    },
+                    "likesCount": {
+                        "label": "Likes",
+                        "format": "number"
+                    },
+                    "commentsCount": {
+                        "label": "Comments",
+                        "format": "number"
+                    },
+                    "email": {
+                        "label": "Email",
+                        "format": "text"
+                    },
+                    "url": {
+                        "label": "URL",
+                        "format": "link"
+                    }
+                }
             }
         }
     }
