@@ -24,6 +24,11 @@ import {
     sanitizeRecord,
 } from './extractors.js';
 
+function isProxyTransportError(errOrStatus) {
+    const msg = String(errOrStatus?.message || errOrStatus || '');
+    return errOrStatus === 597 || errOrStatus === 407 || /597|UPSTREAM407|407|Proxy responded with|tunneling socket/i.test(msg);
+}
+
 await Actor.init();
 
 try {
@@ -134,14 +139,17 @@ try {
             if (username) {
                 log.info(`⚡ Fast API: Attempting direct profile fetch for @${username}...`);
                 const proxyUrl = proxyConfiguration ? await proxyConfiguration.newUrl().catch(() => null) : null;
-                const apiProfile = await fetchProfileViaApi(username, proxyUrl, customCookies, gotScraping);
+                const apiProfile = await fetchProfileViaApi(username, proxyUrl, customCookies, gotScraping, extractEmailAndPhone);
                 if (apiProfile) {
                     log.info(`✅ Fast API Success: @${username} | Followers: ${apiProfile.followersCount?.toLocaleString?.() || 0}`);
                     await pushClean(apiProfile);
 
-                    // If user asked specifically for posts/carousels on a profile URL, also emit individual post records
-                    if (scrapeMode === 'POSTS_AND_CAROUSELS' && Array.isArray(apiProfile.latestPosts)) {
-                        for (const p of apiProfile.latestPosts.slice(0, safeResultsLimit)) {
+                    // If user asked specifically for posts/carousels or reels on a profile URL, also emit individual post records
+                    if ((scrapeMode === 'POSTS_AND_CAROUSELS' || scrapeMode === 'REELS') && Array.isArray(apiProfile.latestPosts)) {
+                        const filteredPosts = scrapeMode === 'REELS'
+                            ? apiProfile.latestPosts.filter((p) => p.type === 'REEL' || p.isVideo)
+                            : apiProfile.latestPosts;
+                        for (const p of filteredPosts.slice(0, safeResultsLimit)) {
                             await pushClean({ ...p, sourceUrl: targetUrl });
                         }
                     }
