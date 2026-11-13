@@ -27,8 +27,12 @@
             "description": "Instagram URLs (Profile, Post, Reel, Hashtag, Place) or plain usernames (e.g. nike, cristiano, leomessi).",
             "editor": "requestListSources",
             "prefill": [
-                { "url": "https://www.instagram.com/nike/" },
-                { "url": "https://www.instagram.com/explore/tags/travel/" }
+                {
+                    "url": "https://www.instagram.com/nike/"
+                },
+                {
+                    "url": "https://www.instagram.com/explore/tags/travel/"
+                }
             ]
         },
         "searchQueries": {
@@ -67,15 +71,20 @@
             "editor": "proxy",
             "default": {
                 "useApifyProxy": true,
-                "apifyProxyGroups": ["RESIDENTIAL"]
+                "apifyProxyGroups": [
+                    "RESIDENTIAL"
+                ]
             }
         },
         "customCookies": {
             "title": "Instagram Session Cookies (Optional)",
             "type": "string",
             "description": "Optional Instagram cookies (JSON array or 'sessionid=...; ds_user_id=...' format) for scraping private profiles, follower lists, or full logged-in data.",
-            "editor": "textarea"
+            "editor": "textfield",
+            "isSecret": true
         }
     },
-    "required": ["directUrls"]
+    "required": [
+        "directUrls"
+    ]
 }
