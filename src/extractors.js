@@ -10,12 +10,13 @@ export function sanitizeRecord(value) {
     if (Array.isArray(value)) {
         return value
             .map((item) => sanitizeRecord(item))
-            .filter((item) => item !== null && item !== undefined);
+            .filter((item) => item !== null && item !== undefined && !(typeof item === 'number' && !Number.isFinite(item)));
     }
     if (value && typeof value === 'object') {
         const out = {};
         for (const [k, v] of Object.entries(value)) {
             if (v === null || v === undefined) continue;
+            if (typeof v === 'number' && !Number.isFinite(v)) continue;
             if (Array.isArray(v)) {
                 out[k] = sanitizeRecord(v);
             } else if (typeof v === 'object') {
@@ -125,10 +126,10 @@ export function extractLeadsFromText(text) {
     return { email, phone };
 }
 
-function normalizeIgUserNode(user) {
+function normalizeIgUserNode(user, includeLeads = true) {
     if (!user || typeof user !== 'object' || !user.username) return null;
     const bio = user.biography || '';
-    const leads = extractLeadsFromText(bio);
+    const leads = includeLeads ? extractLeadsFromText(bio) : { email: undefined, phone: undefined };
 
     return sanitizeRecord({
         type: 'PROFILE',
@@ -145,10 +146,10 @@ function normalizeIgUserNode(user) {
         isPrivate: Boolean(user.is_private),
         isBusiness: Boolean(user.is_business_account || user.is_professional_account),
         businessCategory: user.category_name || user.business_category_name || undefined,
-        email: user.business_email || leads.email,
-        phone: user.business_phone_number || leads.phone,
-        businessEmail: user.business_email || leads.email,
-        businessPhone: user.business_phone_number || leads.phone,
+        email: includeLeads ? (user.business_email || leads.email) : undefined,
+        phone: includeLeads ? (user.business_phone_number || leads.phone) : undefined,
+        businessEmail: includeLeads ? (user.business_email || leads.email) : undefined,
+        businessPhone: includeLeads ? (user.business_phone_number || leads.phone) : undefined,
         profilePicUrl: user.profile_pic_url_hd || user.profile_pic_url || undefined,
     });
 }
@@ -278,7 +279,7 @@ export async function dismissInstagramLoginModal(page) {
 }
 
 // ==================== 1. HIGH-SPEED PROFILE API FETCH ====================
-export async function fetchProfileViaApi(username, proxyUrl = null, cookies = null, requester = null) {
+export async function fetchProfileViaApi(username, proxyUrl = null, cookies = null, requester = null, includeLeads = true) {
     if (!username) return null;
     const apiUrl = `https://www.instagram.com/api/v1/users/web_profile_info/?username=${encodeURIComponent(username)}`;
 
@@ -312,7 +313,7 @@ export async function fetchProfileViaApi(username, proxyUrl = null, cookies = nu
         const user = body?.data?.user;
         if (!user) return null;
 
-        const baseUser = normalizeIgUserNode(user);
+        const baseUser = normalizeIgUserNode(user, includeLeads);
         if (!baseUser) return null;
 
         const edges = user.edge_owner_to_timeline_media?.edges || [];
