@@ -170,6 +170,18 @@
                     "additionalProperties": true
                 }
             },
+            "totalPostsCount": {
+                "type": "string",
+                "title": "Total Hashtag Posts Count"
+            },
+            "collectedPostsCount": {
+                "type": "integer",
+                "title": "Collected Posts Count"
+            },
+            "postsVolume": {
+                "type": "string",
+                "title": "Location Posts Volume"
+            },
             "sourceUrl": {
                 "type": "string",
                 "title": "Source Target URL"
@@ -182,7 +194,8 @@
                 "type": "string",
                 "title": "Scraped At"
             }
-        }
+        },
+        "required": []
     },
     "views": {
         "overview": {
